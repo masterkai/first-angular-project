@@ -1,6 +1,16 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  input,
+  computed,
+  EventEmitter,
+  Output,
+  output,
+} from '@angular/core';
 import { DUMMY_USERS } from '../dummy-user';
 import { NgOptimizedImage } from '@angular/common';
+
+export type User = { name: string; avatar: string; id: string };
 
 @Component({
   selector: 'app-user',
@@ -10,11 +20,17 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  @Input() user: any;
-  get imagePath() {
-    return '/users/' + this.user.avatar;
-  }
-  onUserSelect(user: any) {
-    console.log(user);
+  // @Output() select = new EventEmitter<User>();
+  select = output<User>();
+  // @Input() user!: User;
+  user = input.required<User>();
+
+  // get imagePath() {
+  //   return '/users/' + this.user().avatar;
+  // }
+  imagePath = computed(() => '/users/' + this.user().avatar);
+
+  onUserSelect() {
+    this.select.emit(this.user());
   }
 }
