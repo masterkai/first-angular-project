@@ -9,8 +9,7 @@ import {
 } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-user';
 import { NgOptimizedImage } from '@angular/common';
-
-export type User = { name: string; avatar: string; id: string };
+import { type User } from "./user.model";
 
 @Component({
   selector: 'app-user',
@@ -22,9 +21,8 @@ export type User = { name: string; avatar: string; id: string };
 export class UserComponent {
   // @Output() select = new EventEmitter<User>();
   select = output<User>();
-  // @Input() user!: User;
   user = input.required<User>();
-
+  @Input({required: true}) selected!: boolean;
   // get imagePath() {
   //   return '/users/' + this.user().avatar;
   // }

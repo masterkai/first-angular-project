@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
-import { User, UserComponent } from './user/user.component';
+import {UserComponent } from './user/user.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { DUMMY_USERS } from './dummy-user';
+import { type User } from "./user/user.model";
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,12 @@ export class AppComponent {
   users = DUMMY_USERS;
   title = 'first-angular-project!!';
   selectedUser = signal<User | null>(null);
+  selectedUserID: string | undefined;
   selectedUserName: string | undefined;
   onUserSelect(user: User) {
     console.log('User selected:', user);
     this.selectedUser.set(user);
     this.selectedUserName = user.name;
+    this.selectedUserID = user.id;
   }
 }
