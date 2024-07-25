@@ -20,7 +20,6 @@ export class AppComponent {
   selectedUserID: string | undefined;
   selectedUserName: string | undefined;
   onUserSelect(user: User) {
-    console.log('User selected:', user);
     this.selectedUser.set(user);
     this.selectedUserName = user.name;
     this.selectedUserID = user.id;
