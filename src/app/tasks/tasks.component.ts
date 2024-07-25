@@ -1,20 +1,21 @@
 import { Component, Input } from '@angular/core';
-import { TaskComponent } from "./task/task.component";
-import { type Task } from "./task.model";
+import { TaskComponent } from './task/task.component';
+import { NewTaskComponent } from './new-task/new-task.component';
+import { type Task } from './task.model';
+import { NewTask } from "./new-task/new-task.model";
 
-@Component({
+@Component( {
   selector: 'app-tasks',
   standalone: true,
-  imports: [
-    TaskComponent
-  ],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
-})
+} )
 export class TasksComponent {
-  @Input() selectedUserID: string | undefined;
+  isAddTaskVisible = false;
+  @Input() selectedUserID!: string;
   @Input() selectedUserName: string | undefined;
-  tasks:Task[] = [
+  tasks: Task[] = [
     {
       id: 't1',
       userId: 'u1',
@@ -41,10 +42,34 @@ export class TasksComponent {
   ]
 
   get selectedUserTasks() {
-    return this.tasks.filter(task => task.userId === this.selectedUserID);
+    return this.tasks.filter( task => task.userId === this.selectedUserID );
   }
 
   onCompleteTask(taskId: string) {
-    this.tasks = this.tasks.filter(task => task.id !== taskId);
+    this.tasks = this.tasks.filter( task => task.id !== taskId );
+  }
+
+  idGenerator() {
+    return 't' + Math.random().toString( 36 ).substr( 2, 9 );
+  }
+
+  onStartAddTask() {
+    this.isAddTaskVisible = true;
+
+  }
+
+  onCancelAddTask() {
+    this.isAddTaskVisible = false;
+  }
+
+  onAddTask(newTask: NewTask) {
+    this.tasks.push( {
+      id: this.idGenerator(),
+      userId: this.selectedUserID,
+      title: newTask.title,
+      summary: newTask.summary,
+      dueDate: newTask.dueDate,
+    } );
+    this.isAddTaskVisible = false;
   }
 }

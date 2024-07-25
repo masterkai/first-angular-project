@@ -1,8 +1,11 @@
+@if (isAddTaskVisible) {
+  <app-new-task (cancel)="onCancelAddTask()" (addTask)="onAddTask($event)"/>
+}
 <section  id="tasks">
   <header>
     <h2>Tasks for {{ selectedUserName }}</h2>
     <menu>
-      <button>Add Task</button>
+      <button (click)="onStartAddTask()">Add Task</button>
     </menu>
   </header>
 
