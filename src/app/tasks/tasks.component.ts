@@ -24,10 +24,6 @@ export class TasksComponent {
     return this.tasksService.getUserTasks(this.selectedUserID);
   }
 
-  onCompleteTask(taskId: string) {
-    this.tasksService.completeTask(taskId);
-  }
-
   onStartAddTask() {
     this.isAddTaskVisible = true;
   }

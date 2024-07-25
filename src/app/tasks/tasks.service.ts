@@ -45,7 +45,7 @@ export class TasksService {
             dueDate: new_task.dueDate,
         });
     }
-    completeTask(taskId: string) {
+    removeTask(taskId: string) {
         this.tasks = this.tasks.filter(task => task.id !== taskId);
     }
 }
